@@ -48,7 +48,6 @@ impl FaceLoop {
             image::Rgb([127, 127, 127]),
             &mut cropped,
         );
-        cropped.save("intermediate.png");
 
         let (landmarks, likelihood) = self.landmark.run(&cropped);
 
