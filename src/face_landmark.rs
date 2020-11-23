@@ -28,6 +28,7 @@ impl FaceLandmark {
         let landmarks: &[f32] = outputs[0].data();
         let likelihood: &[f32] = outputs[1].data();
         assert_eq!(landmarks.len() % 3, 0);
+        assert_eq!(likelihood.len(), 1);
 
         let mut dst = Vec::new();
         for i in 0..landmarks.len() / 3 {

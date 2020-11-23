@@ -6,8 +6,8 @@ use std::*;
 
 #[derive(Debug)]
 pub struct BBox {
-    pub p0: (f32, f32),
-    pub p1: (f32, f32),
+    pub center: (f32, f32),
+    pub size: (f32, f32),
     pub key_points: [(f32, f32); 6],
     pub score: f32,
 }
@@ -71,14 +71,8 @@ impl FaceDetector {
             let bx = anchor.center.1 * (self.size as f32 * transform.ax) + transform.bx;
             let translate = |y, x| (ay * y + by, ax * x + bx);
             dst.push(BBox {
-                p0: translate(
-                    boxes[16 * i + 1] - boxes[16 * i + 3] / 2.0,
-                    boxes[16 * i + 0] - boxes[16 * i + 2] / 2.0,
-                ),
-                p1: translate(
-                    boxes[16 * i + 1] + boxes[16 * i + 3] / 2.0,
-                    boxes[16 * i + 0] + boxes[16 * i + 2] / 2.0,
-                ),
+                center: translate(boxes[16 * i + 1], boxes[16 * i + 0]),
+                size: (ay * boxes[16 * i + 3], ax * boxes[16 * i + 2]),
                 key_points: [
                     translate(boxes[16 * i + 5], boxes[16 * i + 4]),
                     translate(boxes[16 * i + 7], boxes[16 * i + 6]),
