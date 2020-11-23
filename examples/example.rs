@@ -1,11 +1,6 @@
 // (c) Yasuhiro Fujii <http://mimosa-pudica.net>, under MIT License.
+use face_landmark_mp::*;
 use std::*;
-mod face_detector;
-mod face_landmark;
-mod face_loop;
-mod image_util;
-mod ssd;
-mod tflite;
 
 fn main() -> Result<(), Box<dyn error::Error>> {
     let mut image = image::open("src.jpg")?.to_rgb();
